@@ -1,0 +1,12 @@
+{
+    "version": "1.0",
+    "description": "AskLara is a playful decision-making app where users tap a mysterious card three times before it reveals a yes or no answer with a dramatic animated flip.",
+    "name": "AskLara",
+    "short_name": "AskLara",
+    "start_url": "/?home=true",
+    "icons": [],
+    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "display": "fullscreen",
+    "orientation": "portrait"
+}
