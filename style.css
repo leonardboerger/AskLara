@@ -1,11 +1,13 @@
 
 body {
     background-color: #6a0dad;
+    overflow: hidden;
+    height: 100vh;
     margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .card-container {
