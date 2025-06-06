@@ -5,11 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AskLara</title>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
         <link rel="manifest" href="manifest.json">
     </head>
     <body>
-        <h1>AskLara</h1>
-        <p>Textseite</p>
+        <div class="card-container" id="card-container">
+            <div class="card" id="card">
+              <div class="card-face card-back">
+                <img src="images/back.png" alt="Rückseite" />
+              </div>
+              <div class="card-face card-front" id="card-front">
+                <img src="images/yes.png" alt="Vorderseite" />
+              </div>
+            </div>
+          </div>
 
         <script>
             if ('serviceWorker' in navigator) {
@@ -23,6 +32,33 @@
                         });
                 });
             }
+
+            // Funktionsweise
+            let card = document.getElementById('card');
+            let cardFront = document.getElementById('card-front').querySelector('img');
+            let tapCount = 0;
+            let isFlipped = false;
+
+            card.addEventListener('click', () => {
+            if (isFlipped) return;
+
+            tapCount++;
+            card.style.animation = `shake${tapCount} 0.5s`;
+
+            setTimeout(() => {
+                card.style.animation = '';
+            }, 500);
+
+            if (tapCount === 3) {
+                const result = Math.random() < 0.5 ? 'yes' : 'no';
+                cardFront.src = `images/${result}.png`;
+
+                setTimeout(() => {
+                card.classList.add('flipped');
+                isFlipped = true;
+                }, 600);
+            }
+            });
         </script>
     </body>
 </html>
