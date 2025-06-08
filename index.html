@@ -38,26 +38,43 @@
             let cardFront = document.getElementById('card-front').querySelector('img');
             let tapCount = 0;
             let isFlipped = false;
+            let canFlipBack = true;
 
             card.addEventListener('click', () => {
-            if (isFlipped) return;
+                if (!isFlipped) {
+                    tapCount++;
+                    card.style.animation = `shake${tapCount} 0.5s`;
 
-            tapCount++;
-            card.style.animation = `shake${tapCount} 0.5s`;
+                    setTimeout(() => {
+                        card.style.animation = '';
+                    }, 500);
 
-            setTimeout(() => {
-                card.style.animation = '';
-            }, 500);
+                    if (tapCount === 3) {
+                        const result = Math.random() < 0.5 ? 'yes' : 'no';
+                        cardFront.src = `images/${result}.png`;
 
-            if (tapCount === 3) {
-                const result = Math.random() < 0.5 ? 'yes' : 'no';
-                cardFront.src = `images/${result}.png`;
+                        setTimeout(() => {
+                            card.classList.add('flipped');
+                            isFlipped = true;
+                            canFlipBack = false;
 
-                setTimeout(() => {
-                card.classList.add('flipped');
-                isFlipped = true;
-                }, 600);
-            }
+                            // Nach 2 Sekunden darf zurückgedreht werden
+                            setTimeout(() => {
+                                canFlipBack = true;
+                            }, 2000);
+                        }, 600);
+                    }
+                } else if (canFlipBack) {
+                    // Zurückdrehen zur Rückseite und Vorbereitung für neuen Durchlauf
+                    card.classList.remove('flipped');
+                    isFlipped = false;
+                    tapCount = 0;
+
+                    // Optional: Setze Bild zurück oder belasse yes/no bis zum nächsten Flip
+                    setTimeout(() => {
+                        cardFront.src = "images/yes.png"; // Kann beliebig geändert werden
+                    }, 500);
+                }
             });
         </script>
     </body>
